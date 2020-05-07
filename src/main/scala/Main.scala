@@ -48,8 +48,8 @@ class Program[F[_], Dir, File](implicit
 
     files <- getFiles.getFiles(testDir)
     _ <- files.traverse(f => {
-      printer.printName(f)
       for {
+        _ <- printer.printName(f)
         ch <- getFirstLetter.getFirstLetter(f)
         d <- mkDir.mkDir(testDir, ch.toString)
         _ <- moveFile.moveFile(f, d)
